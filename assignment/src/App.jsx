@@ -43,22 +43,26 @@ const SearchBar = () => {
 };
 
 
-const UserCard = ({ firstName, lastName, email, status, dob, }) => {
-  const getInitials = (firstName, lastName) => {
-    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+const Card = ({ name, email, status, date }) => {
+  const getInitials = (name) => {
+    const nameParts = name.split(" ");
+    return nameParts.map((part) => part[0]).join("").toUpperCase();
   };
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-full max-w-sm">
       <div className="flex flex-col items-center mb-4 p-3">
-        <div className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl mb-3" style={{ backgroundColor: "#3251D0" }}>
-          {getInitials(firstName, lastName)}
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl mb-3"
+          style={{ backgroundColor: "#3251D0" }}
+        >
+          {getInitials(name)}
         </div>
         <div className="text-left w-full">
-          <p className="font-bold text-md">{`${firstName} ${lastName}`}</p>
+          <p className="font-bold text-md">{name}</p>
           <p className="text-sm text-gray-600">Email: {email}</p>
-          <p className="text-sm text-gray-600">Status: { status === "Active" ? "Active" : "Locked"}</p>
-          <p className="text-sm text-gray-600">Date of Birth: { `${dob}`}</p>
+          <p className="text-sm text-gray-600">Status: {status === "active" ? "Active" : "Locked"}</p>
+          <p className="text-sm text-gray-600">Date of Birth: {date}</p>
         </div>
       </div>
       <div className="flex justify-end space-x-3 mt-auto">
@@ -73,62 +77,38 @@ const UserCard = ({ firstName, lastName, email, status, dob, }) => {
   );
 };
 
-const UserGrid = () => {
-  const [users, setUsers] = useState([]);
+export const CardContainer = () => {
+  const cardArr = [
+    { name: "John Doe", email: "john.doe@example.com", status: "active", date: "1990-05-15" },
+    { name: "Jane Smith", email: "jane.smith@example.com", status: "locked", date: "1988-10-22" },
+    { name: "Bob", email: "bob.martin@example.com", status: "locked", date: "1995-02-10" },
+    { name: "Charlie Brown", email: "charlie.brown@example.com", status: "active", date: "1992-11-30" },
+    { name: "David Lee", email: "david.lee@example.com", status: "locked", date: "1987-07-14" },
+    { name: "Eve", email: "david.lee@example.com", status: "locked", date: "1987-07-14" },
+    { name: "Alice Johnson", email: "david.lee@example.com", status: "active", date: "1987-07-14" },
+    { name: "Frank White", email: "frank.white@example.com", status: "active", date: "1994-01-25" },
+    { name: "Grace Black", email: "Grace.black@example.com", status: "locked", date: "1985-03-17" },
+    { name: "Hannah", email: "Hannah.purple@example.com", status: "active", date: "1996-12-03" },
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users");
-        const data = await response.json();
-        const formattedUsers = data.map((user, index) => {
-          const randomDate = new Date(
-            new Date().setFullYear(
-              new Date().getFullYear() - Math.floor(Math.random() * 50 + 18)
-            )
-          )
-            .toISOString()
-            .split("T")[0];
-            return {
-            firstName:  user.name.split(" ")[0],
-            lastName: user.name.split(" ")[1] || "",
-            email: user.email,
-            status: (index % 2 === 0 ? "Active" : "Locked"),
-            dob: randomDate,
-            };
-        });
-        setUsers(formattedUsers);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-      {users.map((user, index) => (
-        <UserCard
-          key={index}
-          firstName={user.firstName}
-          lastName={user.lastName}
-          email={user.email}
-          status={user.status}
-          dob={user.dob}
-        />
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-4">
+      {cardArr.map((userDetails, index) => (
+        <Card key={index} {...userDetails} />
       ))}
     </div>
   );
 };
-const App = () => {
-  return (
-    <div>
-      <NavigationBar />
-      <SearchBar />
-      <UserGrid />
-    </div>
-  );
-};
 
+ 
+  const App = () => {
+    return (
+      <div>
+        <NavigationBar />
+        <SearchBar />
+        <CardContainer />
+      </div>
+    );
+  };
 export default App;
