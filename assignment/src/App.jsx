@@ -80,12 +80,12 @@ const Card = ({ name, email, status, date }) => {
 export const CardContainer = () => {
   const cardArr = [
     { name: "John Doe", email: "john.doe@example.com", status: "active", date: "1990-05-15" },
-    { name: "Jane Smith", email: "jane.smith@example.com", status: "locked", date: "1988-10-22" },
-    { name: "Bob", email: "bob.martin@example.com", status: "locked", date: "1995-02-10" },
+    { name: "Alice Johnson", email: "david.lee@example.com", status: "active", date: "1987-07-14" },
+    { name: "Jane Smith", email: "jane.smith@example.com", status: "locked", date: "1995-02-10" },
+    { name: "Bob", email: "bob.martin@example.com", status: "locked", date: "1980-08-05" },
     { name: "Charlie Brown", email: "charlie.brown@example.com", status: "active", date: "1992-11-30" },
     { name: "David Lee", email: "david.lee@example.com", status: "locked", date: "1987-07-14" },
     { name: "Eve", email: "david.lee@example.com", status: "locked", date: "1987-07-14" },
-    { name: "Alice Johnson", email: "david.lee@example.com", status: "active", date: "1987-07-14" },
     { name: "Frank White", email: "frank.white@example.com", status: "active", date: "1994-01-25" },
     { name: "Grace Black", email: "Grace.black@example.com", status: "locked", date: "1985-03-17" },
     { name: "Hannah", email: "Hannah.purple@example.com", status: "active", date: "1996-12-03" },
